@@ -1,0 +1,9 @@
+package kemalkeskin.keskinRental.dataAccess.abstracts;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import kemalkeskin.keskinRental.entities.Car;
+
+public interface BrandRepository{
+
+}

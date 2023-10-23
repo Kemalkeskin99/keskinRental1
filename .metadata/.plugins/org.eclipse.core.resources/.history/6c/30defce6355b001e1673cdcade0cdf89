@@ -1,0 +1,7 @@
+package kemalkeskin.keskinRental.business.abstracts;
+
+public interface BrandService {
+	
+
+
+}

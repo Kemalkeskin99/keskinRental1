@@ -1,0 +1,28 @@
+package kemalkeskin.keskinRental.business.concretes;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kemalkeskin.keskinRental.business.abstracts.BrandService;
+import kemalkeskin.keskinRental.dataAccess.abstracts.BrandRepository;
+import kemalkeskin.keskinRental.entities.concretes.Brand;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Service
+public class BrandManager implements BrandService{
+
+	private BrandRepository brandRepository;
+	
+	@Override
+	public List<Brand> getAll() {
+	
+		return brandRepository.findAll();
+	}
+
+
+
+}

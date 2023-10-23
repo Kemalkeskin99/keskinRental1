@@ -1,0 +1,24 @@
+package kemalkeskin.keskinRental.business.abstracts;
+
+import java.util.List;
+
+import kemalkeskin.keskinRental.business.requests.car.CreateCarRequest;
+import kemalkeskin.keskinRental.business.requests.car.UpdateCarRequest;
+import kemalkeskin.keskinRental.business.responses.car.GetAllCarResponse;
+import kemalkeskin.keskinRental.business.responses.car.GetByIdCarResponse;
+
+public interface CarService {
+	
+	List<GetAllCarResponse>getAll();
+	
+	GetByIdCarResponse getById(int id);
+	
+	void add(CreateCarRequest createCarRequest);
+	
+	void update(UpdateCarRequest updateCarRequest);
+	
+	void delete(int id);
+	
+
+
+}

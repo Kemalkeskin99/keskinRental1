@@ -1,0 +1,16 @@
+package kemalkeskin.keskinRental.business.concretes;
+
+import kemalkeskin.keskinRental.business.abstracts.CarService;
+import kemalkeskin.keskinRental.business.requests.CarRequests;
+import kemalkeskin.keskinRental.dataAccess.abstracts.CarRepository;
+import kemalkeskin.keskinRental.entities.Car;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+public class CarManager implements CarService{
+
+
+
+}

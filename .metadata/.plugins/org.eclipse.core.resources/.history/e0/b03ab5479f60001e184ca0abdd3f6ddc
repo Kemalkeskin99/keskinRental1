@@ -1,0 +1,71 @@
+package kemalkeskin.keskinRental.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kemalkeskin.keskinRental.business.abstracts.BrandService;
+import kemalkeskin.keskinRental.business.requests.CreateBrandRequests;
+import kemalkeskin.keskinRental.business.responses.GetAllBrandResponse;
+import kemalkeskin.keskinRental.business.responses.GetByIdBrandResponse;
+import kemalkeskin.keskinRental.dataAccess.abstracts.BrandRepository;
+import kemalkeskin.keskinRental.entities.concretes.Brand;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Service
+public class BrandManager implements BrandService{
+	
+	@Autowired
+	private BrandRepository brandRepository;
+	
+	@Override
+	public List<GetAllBrandResponse> getAll() {
+	
+		List<Brand>brands=brandRepository.findAll();
+		List<GetAllBrandResponse>getAllBrandResponses=new ArrayList<GetAllBrandResponse>();
+		
+		for (Brand brand : brands) {
+			GetAllBrandResponse allBrandResponse= new GetAllBrandResponse();
+			allBrandResponse.setId(brand.getId());
+			allBrandResponse.setName(brand.getName());
+			getAllBrandResponses.add(allBrandResponse);
+			
+		}
+		
+		return getAllBrandResponses;
+		
+	}
+
+	@Override
+	public void add(CreateBrandRequests createBrandRequests) {
+		
+		Brand brand=new Brand();
+		brand.setName(createBrandRequests.getName());
+		this.brandRepository.save(brand);
+		
+	}
+
+	@Override
+	public GetByIdBrandResponse getById(int id) {
+		
+		List<Brand>brands=brandRepository.findAll();
+		for (Brand brand : brands) {
+			GetByIdBrandResponse getByIdBrandResponse=brand.g
+		}
+		
+		GetByIdBrandResponse getByIdBrandResponse=brandRepository.findById(id);
+		if(getByIdBrandResponse.isPresent()) {
+			getByIdBrandResponse.get();
+		}
+		return null;
+	}
+
+
+
+}

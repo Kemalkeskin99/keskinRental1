@@ -1,0 +1,9 @@
+package kemalkeskin.keskinRental.business.abstracts;
+
+import kemalkeskin.keskinRental.business.requests.CarRequests;
+
+public interface BrandService {
+	
+
+
+}

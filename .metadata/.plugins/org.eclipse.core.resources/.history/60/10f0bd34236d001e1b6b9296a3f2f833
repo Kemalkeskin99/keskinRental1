@@ -1,0 +1,84 @@
+package kemalkeskin.keskinRental.business.concretes;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kemalkeskin.keskinRental.business.abstracts.BrandService;
+import kemalkeskin.keskinRental.business.requests.brand.CreateBrandRequests;
+import kemalkeskin.keskinRental.business.requests.brand.UpdateBrandRequest;
+import kemalkeskin.keskinRental.business.responses.brand.GetAllBrandResponse;
+import kemalkeskin.keskinRental.business.responses.brand.GetByIdBrandResponse;
+import kemalkeskin.keskinRental.business.rules.brand.BusinessBrandRules;
+import kemalkeskin.keskinRental.core.utilities.mapper.ModelMapperService;
+import kemalkeskin.keskinRental.dataAccess.abstracts.BrandRepository;
+import kemalkeskin.keskinRental.entities.concretes.Brand;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Service
+public class BrandManager implements BrandService {
+
+	@Autowired
+	private BrandRepository brandRepository;
+	@Autowired
+	private ModelMapperService modelMapperService;
+
+
+	private BusinessBrandRules businessBrandRules;
+
+	@Override
+	public List<GetAllBrandResponse> getAll() {
+
+		List<Brand> brands = brandRepository.findAll();
+		List<GetAllBrandResponse> getAllBrandResponses = brands.stream()
+				.map(brand -> modelMapperService.forResponse().map(brand, GetAllBrandResponse.class))
+				.collect(Collectors.toList());
+		return getAllBrandResponses;
+
+	}
+
+	@Override
+	public GetByIdBrandResponse getById(int id) {
+
+		//this.BusinessRules.checkIfbrandId(id);
+		Brand brands = brandRepository.findById(id).orElseThrow();
+
+		GetByIdBrandResponse getByIdBrandResponse = this.modelMapperService.forResponse().map(brands,
+				GetByIdBrandResponse.class);
+
+		return getByIdBrandResponse;
+	}
+
+	@Override
+	public void add(CreateBrandRequests createBrandRequests) {
+
+		this.businessBrandRules.checkIfbrandName(createBrandRequests.getName());
+		Brand brand = this.modelMapperService.forRequest().map(createBrandRequests, Brand.class);
+		this.brandRepository.save(brand);
+
+	}
+
+	@Override
+	public void update(UpdateBrandRequest updateBrandRequest) {
+
+		this.businessBrandRules.checkIfbrandName(updateBrandRequest.getName());
+		this.businessBrandRules.updateCheckIfbrandId(updateBrandRequest.getId());
+		Brand brands = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
+		this.brandRepository.save(brands);
+
+	}
+
+	@Override
+	public void delete(int id) {
+		this.businessBrandRules.deleteId(id);
+		Brand brand=this.brandRepository.findById(id).get();
+		this.brandRepository.deleteById(id);
+
+	}
+
+}

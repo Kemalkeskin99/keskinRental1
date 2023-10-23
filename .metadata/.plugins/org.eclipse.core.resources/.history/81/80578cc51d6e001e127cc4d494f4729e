@@ -1,0 +1,51 @@
+package kemalkeskin.keskinRental.business.rules.car;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kemalkeskin.keskinRental.core.utilities.exceptions.BusinessExceptions;
+import kemalkeskin.keskinRental.dataAccess.abstracts.CarRepository;
+import lombok.AllArgsConstructor;
+
+import java.util.Calendar;
+
+
+
+@AllArgsConstructor
+@Service
+public class BusinessCarRules {
+
+	@Autowired
+	private CarRepository carRepository;
+	
+	
+	public void checkIfPlate(String plate) {
+		
+		if(this.carRepository.existsByPlate(plate)) {
+			throw new BusinessExceptions("this plate avaliable");
+		}
+	}
+	
+	public void checkModelYear(int modelYear) {
+	
+		Calendar calendar=Calendar.getInstance();
+		if(modelYear>calendar.get(Calendar.YEAR) || modelYear <2010) {
+			throw new BusinessExceptions("model year invalid");
+		}
+	}
+	
+	public void checkIfState(int state) {
+		
+		if(state<=0 && state<4) {
+			throw new BusinessExceptions("state range is 1 and 3");
+		}
+	}
+	
+	public void checkIfDailyPrice(double dailyPrice) {
+		
+		if(dailyPrice<=500 && dailyPrice<2000) {
+			throw new BusinessExceptions("daily price is error. Daily price range is minimum 500 TL and maksimum 2000 TL");
+		}
+	}
+	
+}

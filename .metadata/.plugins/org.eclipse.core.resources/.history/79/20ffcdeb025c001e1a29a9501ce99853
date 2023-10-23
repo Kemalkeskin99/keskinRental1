@@ -1,0 +1,11 @@
+package kemalkeskin.keskinRental.business.abstracts;
+
+import java.util.List;
+
+import kemalkeskin.keskinRental.entities.concretes.Brand;
+
+public interface BrandService {
+	
+ List<Brand>getAll();
+
+}

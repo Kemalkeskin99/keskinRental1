@@ -1,0 +1,15 @@
+package kemalkeskin.keskinRental.business.responses;
+
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class GetAllBrandResponse {
+
+private int id;
+	
+
+	private String name;
+}

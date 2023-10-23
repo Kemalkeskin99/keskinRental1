@@ -1,0 +1,8 @@
+package kemalkeskin.keskinRental.webApi;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequestMapping("/api/brands/")
+public class BrandControllers {
+
+}

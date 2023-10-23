@@ -1,0 +1,63 @@
+package kemalkeskin.keskinRental.webApi;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import kemalkeskin.keskinRental.business.abstracts.CarService;
+import kemalkeskin.keskinRental.business.requests.car.CreateCarRequest;
+import kemalkeskin.keskinRental.business.requests.car.UpdateCarRequest;
+import kemalkeskin.keskinRental.business.responses.car.GetAllCarResponse;
+import kemalkeskin.keskinRental.business.responses.car.GetByIdCarResponse;
+import lombok.AllArgsConstructor;
+
+@RestController
+@RequestMapping("/api/cars")
+@AllArgsConstructor
+public class CarControllers {
+	
+	@Autowired
+	private CarService carService;
+	
+	
+	@GetMapping
+	public List<GetAllCarResponse>getAll(){
+		return carService.getAll();
+	}
+	
+	
+	@GetMapping("/{id}")
+	public GetByIdCarResponse getById(@PathVariable int id) {
+		return carService.getById(id);
+	}
+	
+
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public void add( @RequestBody CreateCarRequest createCarRequest) {
+		this.carService.add(createCarRequest);
+	}
+	
+	@PutMapping
+	public void update(@RequestBody UpdateCarRequest updateCarRequest) {
+		this.carService.update(updateCarRequest);
+	}
+	
+	@DeleteMapping
+	public void delete(int id) {
+		this.carService.delete(id);
+	}
+	
+
+
+}
